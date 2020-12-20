@@ -9,7 +9,11 @@
       </div>
       <p class="card-user__age"><span>{{ user.age }}</span>лет</p>
       <p class="card-user__phone"><a href="tel:+">{{ user.phone }}</a></p>
-      <button class="card-user__favourite"></button>
+      <button @click="addToFavourite(user.id)" class="card-user__favourite" :class="{ 'card-user__favourite--active': user.favourite }">
+        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512">
+          <path d="M512 197.816l-186.039-12.231L255.898 9.569l-70.063 176.016L0 197.816l142.534 121.026-46.772 183.589L255.898 401.21l160.137 101.221-46.772-183.589z" xmlns="http://www.w3.org/2000/svg"/>
+        </svg>
+      </button>
     </div>
     <!-- Если есть видео, здесь -->
 
@@ -17,10 +21,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: ['user'],
   created () {
     // console.log(this.$props)
+  },
+  computed: {
+    ...mapState(['users'])
+  },
+  methods: {
+    addToFavourite (id) {
+      const user = this.users.find(item => item.id === id)
+      if (user.favourite) {
+        user.favourite = false
+      } else {
+        user.favourite = true
+      }
+      console.log('user', user)
+      console.log('id', id)
+    }
   }
 }
 </script>
@@ -40,7 +60,7 @@ export default {
     height: 50px;
     overflow: hidden;
     border-radius: 50%;
-    background-color: #ccc;
+    background-color: var(--brandColor4);
   }
   .card-user__avatar-wrap {
     margin-right: 15px;
@@ -48,9 +68,14 @@ export default {
   .card-user__name {
     font-size: 16px;
     line-height: 22px;
-    color: #333;
+    color: var(--brandColor2);
   }
   .card-user__age {
     margin-right: auto;
+  }
+  .card-user__favourite--active {
+    path {
+      fill: var(--brandColor);
+    }
   }
 </style>

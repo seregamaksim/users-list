@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <div class="user-list" v-for="obj in myJson" :key="obj.id">
-      <CardUser :user="obj"></CardUser>
-    </div>
+    <svg style="display:none;">
+      <symbol id="icon-star" viewBox="0 0 512 512">
+          <polygon points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 255.898,401.21 416.035,502.431 369.263,318.842" fill="#ccc" style="fill: var(--brandColor4)" data-original="#000000"/>
+      </symbol>
+    </svg>
+    <UsersList></UsersList>
   </div>
 </template>
 
 <script>
 import json from './assets/data.json'
-import CardUser from './components/CardUser'
+import UsersList from './components/UsersList'
 
 export default {
   data () {
@@ -18,18 +21,24 @@ export default {
   },
   name: 'App',
   created () {
-    console.log('myJson', this.myJson)
+    // console.log('myJson', this.myJson)
   },
   mounted () {
 
   },
   components: {
-    CardUser
+    UsersList
   }
 }
 </script>
 
 <style lang="scss">
+:root {
+  --brandColor: #507DBC;
+  --brandColor2: #04080F;
+  --brandColor3: #FFFBFE;
+  --brandColor4: #D0CFCF;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
