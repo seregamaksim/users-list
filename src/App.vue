@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <svg style="display:none;">
-      <symbol id="icon-star" viewBox="0 0 512 512">
-          <polygon points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 255.898,401.21 416.035,502.431 369.263,318.842" fill="#ccc" style="fill: var(--brandColor4)" data-original="#000000"/>
-      </symbol>
-    </svg>
+    <FilterTab></FilterTab>
     <UsersList></UsersList>
   </div>
 </template>
@@ -12,6 +8,7 @@
 <script>
 import json from './assets/data.json'
 import UsersList from './components/UsersList'
+import FilterTab from './components/FilterTab'
 
 export default {
   data () {
@@ -27,7 +24,7 @@ export default {
 
   },
   components: {
-    UsersList
+    UsersList, FilterTab
   }
 }
 </script>
@@ -41,12 +38,26 @@ export default {
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
   max-width: 700px;
   margin: 0 auto;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 </style>
