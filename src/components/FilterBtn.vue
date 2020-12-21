@@ -7,7 +7,10 @@
 <script>
 
 export default {
-  props: ['btnText', 'method']
+  props: {
+    btnText: String,
+    method: String
+  }
 }
 </script>
 
