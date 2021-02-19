@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    users: []
+    users: [],
+    ascendingFilter: false
   },
   mutations: {
     addUsers (state, users) {
@@ -29,7 +30,6 @@ export default new Vuex.Store({
         if (a.age < b.age) return -1
       }
       state.users = state.users.sort(compareNumeric)
-      console.log('sortByAge', state.users)
     },
     sortById (state) {
       function compareNumeric (a, b) {
@@ -38,7 +38,6 @@ export default new Vuex.Store({
         if (a.id < b.id) return -1
       }
       state.users = state.users.sort(compareNumeric)
-      console.log('sortById', state.users)
     },
     sortByName (state) {
       function compareNumeric (a, b) {
@@ -47,11 +46,15 @@ export default new Vuex.Store({
         if (a.name < b.name) return -1
       }
       state.users = state.users.sort(compareNumeric)
-      console.log('sortByName', state.users)
     },
-    reverseUsers (state) {
-      state.users = state.users.reverse()
-      console.log('reverseUsers', state.users)
+    reverseUsers (state, upDownFilter) {
+      if (upDownFilter === 'up' && !state.ascendingFilter) {
+        state.users = state.users.reverse()
+        state.ascendingFilter = true
+      } else if (upDownFilter === 'down' && state.ascendingFilter) {
+        state.users = state.users.reverse()
+        state.ascendingFilter = false
+      }
     }
   },
   actions: {
@@ -73,8 +76,8 @@ export default new Vuex.Store({
     getUsersByName (context) {
       context.commit('sortByName', 'name')
     },
-    getReverseUsers (context) {
-      context.commit('reverseUsers')
+    getReverseUsers (context, upDownFilter) {
+      context.commit('reverseUsers', upDownFilter)
     }
   },
   getters: {

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">
+  <button class="btn" v-on="$listeners">
     {{ btnText }}
   </button>
 </template>
@@ -9,7 +9,7 @@
 export default {
   props: {
     btnText: String,
-    method: String
+    method: Function
   }
 }
 </script>
