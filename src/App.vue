@@ -39,7 +39,7 @@ export default {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   margin-top: 60px;
-  max-width: 700px;
+  max-width: 85vw;
   margin: 0 auto;
 }
 *,
@@ -60,4 +60,10 @@ button {
   padding: 0;
   cursor: pointer;
 }
+
+img ,video {
+  max-width: 100%;
+  height: auto;
+}
+
 </style>

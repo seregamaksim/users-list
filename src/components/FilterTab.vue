@@ -15,9 +15,9 @@
       </li>
       <li class="filter-list__item">
         <p class="filter-list__item-title">Вид</p>
-        <div class="filter-list__item-btns">
-          <FilterBtn btnText="Таблица"></FilterBtn>
-          <FilterBtn btnText="Превью"></FilterBtn>
+        <div class="filter-list__item-btns filter-list__item-btns--full">
+          <FilterBtn btnText="Таблица" @click="getChangeView('table')"></FilterBtn>
+          <FilterBtn btnText="Превью" @click="getChangeView('preview')"></FilterBtn>
         </div>
       </li>
     </ul>
@@ -32,7 +32,7 @@ export default {
     FilterBtn
   },
   methods: {
-    ...mapActions(['getUsersByAge', 'getUsersById', 'getUsersByName', 'getReverseUsers'])
+    ...mapActions(['getUsersByAge', 'getUsersById', 'getUsersByName', 'getReverseUsers', 'getChangeView'])
   }
 }
 </script>
@@ -43,6 +43,27 @@ export default {
   }
   .filter-list__list {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
+  }
+  .filter-list__item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+    flex-grow: 1;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .filter-list__item-btns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .filter-list__item-btns--full {
+    height: 100%;
   }
 </style>

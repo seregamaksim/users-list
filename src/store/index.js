@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     users: [],
-    ascendingFilter: false
+    ascendingFilter: false,
+    viewPreview: false
   },
   mutations: {
     addUsers (state, users) {
@@ -55,6 +56,13 @@ export default new Vuex.Store({
         state.users = state.users.reverse()
         state.ascendingFilter = false
       }
+    },
+    changeView (state, view) {
+      if (view === 'preview') {
+        state.viewPreview = true
+      } else if (view === 'table') {
+        state.viewPreview = false
+      }
     }
   },
   actions: {
@@ -78,11 +86,17 @@ export default new Vuex.Store({
     },
     getReverseUsers (context, upDownFilter) {
       context.commit('reverseUsers', upDownFilter)
+    },
+    getChangeView (context, view) {
+      context.commit('changeView', view)
     }
   },
   getters: {
     allUsers (state) {
       return state.users
+    },
+    currentPreview (state) {
+      return state.viewPreview
     }
     // sorteredByAge (state) {
     //   return state.users

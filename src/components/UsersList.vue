@@ -23,7 +23,7 @@ export default {
     ...mapActions(['getUsers'])
   },
   computed: {
-    ...mapGetters(['allUsers'])
+    ...mapGetters(['allUsers', 'currentPreview'])
   },
   components: {
     CardUser
