@@ -1,28 +1,21 @@
 <template>
   <div id="app">
-    <FilterTab></FilterTab>
+    <FilterTab ></FilterTab>
     <UsersList></UsersList>
   </div>
 </template>
 
 <script>
-import json from './assets/data.json'
 import UsersList from './components/UsersList'
 import FilterTab from './components/FilterTab'
 
 export default {
   data () {
     return {
-      myJson: json
+      // myJson: json
     }
   },
   name: 'App',
-  created () {
-    // console.log('myJson', this.myJson)
-  },
-  mounted () {
-
-  },
   components: {
     UsersList, FilterTab
   }
@@ -62,6 +55,7 @@ button {
 }
 
 img ,video {
+  display: block;
   max-width: 100%;
   height: auto;
 }

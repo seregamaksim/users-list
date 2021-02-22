@@ -20,19 +20,33 @@
           <FilterBtn btnText="Превью" @click="getChangeView('preview')"></FilterBtn>
         </div>
       </li>
+      <li class="filter-list__item filter-list__item--full">
+        <p class="filter-list__item-title">Поиск</p>
+        <Input placeholder="Поиск" :value="test" v-model="test" />
+        {{ test }}
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 import FilterBtn from './FilterBtn'
+import Input from './Input'
 import { mapActions } from 'vuex'
 export default {
+  data () {
+    return {
+      test: ''
+    }
+  },
   components: {
-    FilterBtn
+    FilterBtn, Input
   },
   methods: {
     ...mapActions(['getUsersByAge', 'getUsersById', 'getUsersByName', 'getReverseUsers', 'getChangeView'])
+    // setParent (e) {
+    //   this.$emit('setParent', e.target.value)
+    // }
   }
 }
 </script>
@@ -43,6 +57,7 @@ export default {
   }
   .filter-list__list {
     display: flex;
+    flex-wrap: wrap;
     // justify-content: space-between;
   }
   .filter-list__item {
@@ -53,6 +68,9 @@ export default {
     &:last-child {
       margin-right: 0;
     }
+  }
+  .filter-list__item--full {
+    width: 100%;
   }
   .filter-list__item-btns {
     display: grid;
@@ -65,5 +83,20 @@ export default {
   }
   .filter-list__item-btns--full {
     height: 100%;
+  }
+  @media (max-width: 768px) {
+    .filter-list__list {
+      display: block;
+    }
+    .filter-list__item {
+      margin-right: 0;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .filter-list__item-btns {
+      grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+    }
   }
 </style>

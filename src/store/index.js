@@ -89,6 +89,9 @@ export default new Vuex.Store({
     },
     getChangeView (context, view) {
       context.commit('changeView', view)
+    },
+    getFilteredUsers (context, string) {
+      console.log('string', string)
     }
   },
   getters: {

@@ -108,7 +108,7 @@ export default {
     }
   }
   .card-user--preview {
-    width: 50%;
+    // width: 50%;
     .card-user__wrapper {
       flex-direction: column;
       align-items: flex-start;
@@ -130,5 +130,41 @@ export default {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-column: span 2;
+  }
+  .card-user__video {
+    height: 100%;
+  }
+  @media (max-width: 768px) {
+    .card-user__name-ava {
+      min-width: 200px;
+    }
+    .card-user__name,
+    .card-user__age,
+    .card-user__phone,
+    .card-user__phrase {
+      font-size: 14px;
+    }
+    .card-user__phone {
+      margin-right: 15px;
+    }
+    .card-user__age {
+      margin-left: 0;
+    }
+  }
+  @media (max-width: 600px) {
+    .card-user__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+    .card-user__favourite {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+    .card-user--video {
+      display: block;
+    }
   }
 </style>
