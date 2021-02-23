@@ -22,7 +22,8 @@
       </li>
       <li class="filter-list__item filter-list__item--full">
         <p class="filter-list__item-title">Поиск</p>
-        <Input placeholder="Поиск" :value="test" v-model="test" />
+        <!-- <Input placeholder="Поиск" :value="test" v-model="test" /> -->
+        <input class="input" type="text" name="search" @input="getFilteredUsers($event.target.value)" placeholder="Поиск">
         {{ test }}
       </li>
     </ul>
@@ -31,7 +32,7 @@
 
 <script>
 import FilterBtn from './FilterBtn'
-import Input from './Input'
+// import Input from './Input'
 import { mapActions } from 'vuex'
 export default {
   data () {
@@ -40,10 +41,11 @@ export default {
     }
   },
   components: {
-    FilterBtn, Input
+    FilterBtn
+    // Input
   },
   methods: {
-    ...mapActions(['getUsersByAge', 'getUsersById', 'getUsersByName', 'getReverseUsers', 'getChangeView'])
+    ...mapActions(['getUsersByAge', 'getUsersById', 'getUsersByName', 'getReverseUsers', 'getChangeView', 'getFilteredUsers'])
     // setParent (e) {
     //   this.$emit('setParent', e.target.value)
     // }

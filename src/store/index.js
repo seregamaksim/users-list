@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     users: [],
     ascendingFilter: false,
-    viewPreview: false
+    viewPreview: false,
+    searchUsers: ''
   },
   mutations: {
     addUsers (state, users) {
@@ -63,6 +64,27 @@ export default new Vuex.Store({
       } else if (view === 'table') {
         state.viewPreview = false
       }
+    },
+    setSearchQueryValue (state, string) {
+      state.searchUsers = string
+      console.log('state.searchUsers', state.searchUsers)
+      return state.users.filter((item) => {
+        return state.searchUsers.toLowerCase().split(' ').every(v => {
+          item.name.toLowerCase().includes(v)
+        })
+        // return state.users.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        // console.log()
+      })
+    },
+    sortBySearchQuery (state) {
+      // return
+      return state.users.filter((item) => {
+        return state.searchUsers.toLowerCase().split(' ').every(v => {
+          item.name.toLowerCase().includes(v)
+        })
+        // return state.users.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        // console.log()
+      })
     }
   },
   actions: {
@@ -91,7 +113,9 @@ export default new Vuex.Store({
       context.commit('changeView', view)
     },
     getFilteredUsers (context, string) {
-      console.log('string', string)
+      // console.log('string', string)
+      context.commit('setSearchQueryValue', string)
+      // context.commit('sortBySearchQuery')
     }
   },
   getters: {
@@ -100,6 +124,9 @@ export default new Vuex.Store({
     },
     currentPreview (state) {
       return state.viewPreview
+    },
+    filteredUsers (state) {
+      return state.searchUsers
     }
     // sorteredByAge (state) {
     //   return state.users
