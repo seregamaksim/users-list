@@ -125,8 +125,21 @@ export default new Vuex.Store({
     currentPreview (state) {
       return state.viewPreview
     },
-    filteredUsers (state) {
-      return state.searchUsers
+    filteredUsers: state => string => {
+      // console.log('string', string)
+      state.searchUsers = string
+      console.log('state.searchUsers', state.searchUsers)
+      return state.users.filter(item => {
+        return state.searchUsers.toLowerCase().split(' ').every(v => {
+          item.name.toLowerCase().includes(v)
+        })
+        // console.log(item.name.toLowerCase().includes(string))
+        // if (item.name.toLowerCase().includes(string)) {
+        //   console.log('success', item)
+        // } else {
+        //   // console.log('error')
+        // }
+      })
     }
     // sorteredByAge (state) {
     //   return state.users
