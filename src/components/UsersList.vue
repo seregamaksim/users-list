@@ -13,12 +13,11 @@ import CardUser from './CardUser'
 export default {
   data () {
     return {
-      users: this.getUsers()
+      // users: this.getUsers()
     }
   },
   mounted () {
     this.getUsers()
-    // this.users = dataUsers
   },
   methods: {
     ...mapActions(['getUsers'])

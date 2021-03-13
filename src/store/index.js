@@ -15,27 +15,11 @@ export default new Vuex.Store({
       state.users = users
       state.searchUsers = users
     },
-    sortByAge (state) {
+    sortBy (state, key) {
       function compareNumeric (a, b) {
-        if (a.age > b.age) return 1
-        if (a.age === b.age) return 0
-        if (a.age < b.age) return -1
-      }
-      state.searchUsers = state.searchUsers.sort(compareNumeric)
-    },
-    sortById (state) {
-      function compareNumeric (a, b) {
-        if (a.id > b.id) return 1
-        if (a.id === b.id) return 0
-        if (a.id < b.id) return -1
-      }
-      state.searchUsers = state.searchUsers.sort(compareNumeric)
-    },
-    sortByName (state) {
-      function compareNumeric (a, b) {
-        if (a.name > b.name) return 1
-        if (a.name === b.name) return 0
-        if (a.name < b.name) return -1
+        if (a[key] > b[key]) return 1
+        if (a[key] === b[key]) return 0
+        if (a[key] < b[key]) return -1
       }
       state.searchUsers = state.searchUsers.sort(compareNumeric)
     },
@@ -73,14 +57,8 @@ export default new Vuex.Store({
           context.commit('addUsers', data)
         })
     },
-    getUsersByAge (context) {
-      context.commit('sortByAge', 'age')
-    },
-    getUsersById (context) {
-      context.commit('sortById', 'id')
-    },
-    getUsersByName (context) {
-      context.commit('sortByName', 'name')
+    getUsersBy (context, sortKey) {
+      context.commit('sortBy', sortKey)
     },
     getReverseUsers (context, upDownFilter) {
       context.commit('reverseUsers', upDownFilter)
@@ -102,25 +80,6 @@ export default new Vuex.Store({
     searcheredUsers (state) {
       return state.searchUsers
     }
-    // filteredUsers: state => string => {
-    //   // console.log('string', string)
-    //   state.searchUsers = string
-    //   return state.users.filter(item => {
-    //     return state.searchUsers.toLowerCase().split(' ').every(v => {
-    //       item.name.toLowerCase().includes(v)
-    //     })
-    //     // console.log(item.name.toLowerCase().includes(string))
-    //     // if (item.name.toLowerCase().includes(string)) {
-    //     //   console.log('success', item)
-    //     // } else {
-    //     //   // console.log('error')
-    //     // }
-    //   })
-    // }
-    // sorteredByAge (state) {
-    //   return state.users
-
-    // }
   },
   modules: {
   }

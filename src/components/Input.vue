@@ -1,5 +1,5 @@
 <template>
-  <input class="input" type="text" name="search" :value="value" v-on:input="$emit('input', $event.target.value)" :placeholder="placeholder">
+  <input class="input" type="text" name="search" :value="value" v-on="$listeners" :placeholder="placeholder">
 </template>
 
 <script>

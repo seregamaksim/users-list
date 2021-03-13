@@ -28,7 +28,6 @@ import { mapGetters } from 'vuex'
 export default {
   props: ['user'],
   created () {
-    // console.log(this.$props)
   },
   computed: {
     ...mapGetters(['allUsers', 'currentPreview'])

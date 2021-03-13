@@ -4,9 +4,9 @@
       <li class="filter-list__item">
         <p class="filter-list__item-title">Сортировка</p>
         <div class="filter-list__item-btns">
-          <FilterBtn btnText="ID"  @click="this.getUsersById"></FilterBtn>
-          <FilterBtn btnText="Имя" @click="this.getUsersByName"></FilterBtn>
-          <FilterBtn btnText="Возраст" @click="this.getUsersByAge"></FilterBtn>
+          <FilterBtn btnText="ID"  @click="getUsersBy('id')"></FilterBtn>
+          <FilterBtn btnText="Имя" @click="getUsersBy('name')"></FilterBtn>
+          <FilterBtn btnText="Возраст" @click="getUsersBy('age')"></FilterBtn>
         </div>
         <div class="filter-list__item-btns">
           <FilterBtn btnText="По возрастанию" @click="getReverseUsers('up')"></FilterBtn>
@@ -22,9 +22,7 @@
       </li>
       <li class="filter-list__item filter-list__item--full">
         <p class="filter-list__item-title">Поиск</p>
-        <!-- <Input placeholder="Поиск" :value="test" v-model="test" /> -->
-        <input class="input" type="text" name="search" @input="getFilteredUsers($event.target.value)" placeholder="Поиск">
-        <!-- <input class="input" type="text" name="search" v-model="test" placeholder="Поиск"> -->
+        <Input placeholder="Поиск" @input="getFilteredUsers($event.target.value)" />
       </li>
     </ul>
   </div>
@@ -32,7 +30,7 @@
 
 <script>
 import FilterBtn from './FilterBtn'
-// import Input from './Input'
+import Input from './Input'
 import { mapActions } from 'vuex'
 export default {
   data () {
@@ -41,14 +39,11 @@ export default {
     }
   },
   components: {
-    FilterBtn
-    // Input
+    FilterBtn, Input
   },
   methods: {
-    ...mapActions(['getUsersByAge', 'getUsersById', 'getUsersByName', 'getReverseUsers', 'getChangeView', 'getFilteredUsers'])
-    // setParent (e) {
-    //   this.$emit('setParent', e.target.value)
-    // }
+    ...mapActions(['getUsersBy', 'getReverseUsers', 'getChangeView', 'getFilteredUsers'])
+
   }
 }
 </script>
