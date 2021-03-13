@@ -19,5 +19,7 @@ export default {
     padding: 7px 15px;
     background-color: var(--brandColor);
     color: var(--brandColor3);
+    border-radius: 5px;
+    overflow: hidden;
   }
 </style>

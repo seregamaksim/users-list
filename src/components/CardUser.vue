@@ -1,26 +1,28 @@
 <template>
-  <article class="card-user" :class="{ 'card-user--preview': currentPreview, 'card-user--video': user.video && currentPreview}">
-    <div class="card-user__wrapper">
-      <div class="card-user__name-ava">
-        <div class="card-user__avatar-wrap">
-          <img :src="require(`../assets/images/${user.image}.svg`)" :alt="user.name" class="card-user__avatar">
+  <transition name="user-card" appear>
+    <article class="card-user" :class="{ 'card-user--preview': currentPreview, 'card-user--video': user.video && currentPreview}">
+      <div class="card-user__wrapper">
+        <div class="card-user__name-ava">
+          <div class="card-user__avatar-wrap">
+            <img :src="require(`../assets/images/${user.image}.svg`)" :alt="user.name" class="card-user__avatar">
+          </div>
+          <p class="card-user__name">{{ user.name }}</p>
         </div>
-        <p class="card-user__name">{{ user.name }}</p>
+        <p class="card-user__age"><span>{{ user.age }}</span>лет</p>
+        <p class="card-user__phone"><a href="tel:+">{{ user.phone }}</a></p>
+        <p class="card-user__phrase" v-show="currentPreview">{{ user.phrase }}</p>
+        <button @click="addToFavourite(user.id)" class="card-user__favourite" :class="{ 'card-user__favourite--active': user.favourite }">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25" height="25">
+            <path d="M512 197.816l-186.039-12.231L255.898 9.569l-70.063 176.016L0 197.816l142.534 121.026-46.772 183.589L255.898 401.21l160.137 101.221-46.772-183.589z" xmlns="http://www.w3.org/2000/svg"/>
+          </svg>
+        </button>
       </div>
-      <p class="card-user__age"><span>{{ user.age }}</span>лет</p>
-      <p class="card-user__phone"><a href="tel:+">{{ user.phone }}</a></p>
-      <p class="card-user__phrase" v-show="currentPreview">{{ user.phrase }}</p>
-      <button @click="addToFavourite(user.id)" class="card-user__favourite" :class="{ 'card-user__favourite--active': user.favourite }">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25" height="25">
-          <path d="M512 197.816l-186.039-12.231L255.898 9.569l-70.063 176.016L0 197.816l142.534 121.026-46.772 183.589L255.898 401.21l160.137 101.221-46.772-183.589z" xmlns="http://www.w3.org/2000/svg"/>
-        </svg>
-      </button>
-    </div>
-    <div class="card-user__video-wrap" v-if="user.video && currentPreview">
-      <video class="card-user__video" width="100%" :src="require(`../assets/videos/${user.video}.mp4`)" controls preload="none"></video>
-    </div>
+      <div class="card-user__video-wrap" v-if="user.video && currentPreview">
+        <video class="card-user__video" width="100%" :src="require(`../assets/videos/${user.video}.mp4`)" controls preload="none"></video>
+      </div>
 
-  </article>
+    </article>
+  </transition>
 </template>
 
 <script>
@@ -48,6 +50,20 @@ export default {
 </script>
 
 <style lang="scss" scope>
+  .user-card-enter-active,
+  .user-card-leave-active {
+    transition: all 0.3s ease;
+  }
+  .user-card-enter:nth-child(odd),
+  .user-card-leave-to:nth-child(odd) {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  .user-card-enter:nth-child(even),
+  .user-card-leave-to:nth-child(even) {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
   .card-user__wrapper,
   .card-user__name-ava {
     display: flex;

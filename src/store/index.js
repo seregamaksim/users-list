@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { newUrl } from '@/assets/js/newUrl'
+import { checkUrl } from '@/assets/js/checkUrl'
 
 Vue.use(Vuex)
 
@@ -21,6 +23,7 @@ export default new Vuex.Store({
         if (a[key] === b[key]) return 0
         if (a[key] < b[key]) return -1
       }
+      newUrl('sortBy', key)
       state.searchUsers = state.searchUsers.sort(compareNumeric)
     },
     reverseUsers (state, upDownFilter) {
@@ -31,6 +34,7 @@ export default new Vuex.Store({
         state.searchUsers = state.searchUsers.reverse()
         state.ascendingFilter = false
       }
+      newUrl('upDown', upDownFilter)
     },
     changeView (state, view) {
       if (view === 'preview') {
@@ -38,8 +42,14 @@ export default new Vuex.Store({
       } else if (view === 'table') {
         state.viewPreview = false
       }
+      newUrl('view', view)
     },
     setSearchQueryValue (state, string) {
+      if (string.length !== 0) {
+        newUrl('searchName', string)
+      } else {
+        newUrl('searchName', string, true)
+      }
       state.searchUsers = state.users.filter(item => {
         return string.toLowerCase().split(' ').every(func => {
           return item.name.toLowerCase().includes(func)
@@ -55,6 +65,21 @@ export default new Vuex.Store({
         })
         .then(data => {
           context.commit('addUsers', data)
+          const searchParams = checkUrl()
+          if (searchParams) {
+            if (searchParams.sortBy) {
+              context.commit('sortBy', searchParams.sortBy)
+            }
+            if (searchParams.upDown) {
+              context.commit('reverseUsers', searchParams.upDown)
+            }
+            if (searchParams.view) {
+              context.commit('changeView', searchParams.view)
+            }
+            if (searchParams.searchName) {
+              context.commit('setSearchQueryValue', searchParams.searchName)
+            }
+          }
         })
     },
     getUsersBy (context, sortKey) {

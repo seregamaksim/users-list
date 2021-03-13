@@ -22,7 +22,7 @@
       </li>
       <li class="filter-list__item filter-list__item--full">
         <p class="filter-list__item-title">Поиск</p>
-        <Input placeholder="Поиск" @input="getFilteredUsers($event.target.value)" />
+        <Input placeholder="Поиск" @input="getFilteredUsers($event.target.value)" :value="inputSearchValue" />
       </li>
     </ul>
   </div>
@@ -35,15 +35,19 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      // test: ''
+      inputSearchValue: this.searcValueSet()
     }
   },
   components: {
     FilterBtn, Input
   },
   methods: {
-    ...mapActions(['getUsersBy', 'getReverseUsers', 'getChangeView', 'getFilteredUsers'])
-
+    ...mapActions(['getUsersBy', 'getReverseUsers', 'getChangeView', 'getFilteredUsers']),
+    searcValueSet () {
+      const urlSearch = new URLSearchParams(window.location.search)
+      const value = urlSearch.get('searchName')
+      return value
+    }
   }
 }
 </script>
@@ -53,21 +57,25 @@ export default {
     margin-bottom: 30px;
   }
   .filter-list__list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 25px;
+    // display: flex;
+    // flex-wrap: wrap;
     // justify-content: space-between;
   }
   .filter-list__item {
     display: flex;
     flex-direction: column;
-    margin-right: 25px;
-    flex-grow: 1;
+    // margin-right: 25px;
+    // flex-grow: 1;
     &:last-child {
       margin-right: 0;
     }
   }
   .filter-list__item--full {
-    width: 100%;
+    // width: 100%;
+    grid-column: 1/-1;
   }
   .filter-list__item-btns {
     display: grid;
