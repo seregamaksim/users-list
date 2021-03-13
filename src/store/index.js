@@ -8,30 +8,20 @@ export default new Vuex.Store({
     users: [],
     ascendingFilter: false,
     viewPreview: false,
-    searchUsers: ''
+    searchUsers: []
   },
   mutations: {
     addUsers (state, users) {
       state.users = users
+      state.searchUsers = users
     },
-    // sortUsers (state, by) {
-    //   const nameKey = by
-    //   function compareNumeric (a, b) {
-    //     console.log(a)
-    //     if (a.nameKey > b.nameKey) return 1
-    //     if (a.nameKey === b.nameKey) return 0
-    //     if (a.nameKey < b.nameKey) return -1
-    //   }
-    //   state.users = state.users.sort(compareNumeric)
-    //   console.log('sortBy', nameKey)
-    // },
     sortByAge (state) {
       function compareNumeric (a, b) {
         if (a.age > b.age) return 1
         if (a.age === b.age) return 0
         if (a.age < b.age) return -1
       }
-      state.users = state.users.sort(compareNumeric)
+      state.searchUsers = state.searchUsers.sort(compareNumeric)
     },
     sortById (state) {
       function compareNumeric (a, b) {
@@ -39,7 +29,7 @@ export default new Vuex.Store({
         if (a.id === b.id) return 0
         if (a.id < b.id) return -1
       }
-      state.users = state.users.sort(compareNumeric)
+      state.searchUsers = state.searchUsers.sort(compareNumeric)
     },
     sortByName (state) {
       function compareNumeric (a, b) {
@@ -47,14 +37,14 @@ export default new Vuex.Store({
         if (a.name === b.name) return 0
         if (a.name < b.name) return -1
       }
-      state.users = state.users.sort(compareNumeric)
+      state.searchUsers = state.searchUsers.sort(compareNumeric)
     },
     reverseUsers (state, upDownFilter) {
       if (upDownFilter === 'up' && !state.ascendingFilter) {
-        state.users = state.users.reverse()
+        state.searchUsers = state.searchUsers.reverse()
         state.ascendingFilter = true
       } else if (upDownFilter === 'down' && state.ascendingFilter) {
-        state.users = state.users.reverse()
+        state.searchUsers = state.searchUsers.reverse()
         state.ascendingFilter = false
       }
     },
@@ -66,24 +56,10 @@ export default new Vuex.Store({
       }
     },
     setSearchQueryValue (state, string) {
-      state.searchUsers = string
-      console.log('state.searchUsers', state.searchUsers)
-      return state.users.filter((item) => {
-        return state.searchUsers.toLowerCase().split(' ').every(v => {
-          item.name.toLowerCase().includes(v)
+      state.searchUsers = state.users.filter(item => {
+        return string.toLowerCase().split(' ').every(func => {
+          return item.name.toLowerCase().includes(func)
         })
-        // return state.users.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
-        // console.log()
-      })
-    },
-    sortBySearchQuery (state) {
-      // return
-      return state.users.filter((item) => {
-        return state.searchUsers.toLowerCase().split(' ').every(v => {
-          item.name.toLowerCase().includes(v)
-        })
-        // return state.users.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
-        // console.log()
       })
     }
   },
@@ -113,9 +89,7 @@ export default new Vuex.Store({
       context.commit('changeView', view)
     },
     getFilteredUsers (context, string) {
-      // console.log('string', string)
       context.commit('setSearchQueryValue', string)
-      // context.commit('sortBySearchQuery')
     }
   },
   getters: {
@@ -125,22 +99,24 @@ export default new Vuex.Store({
     currentPreview (state) {
       return state.viewPreview
     },
-    filteredUsers: state => string => {
-      // console.log('string', string)
-      state.searchUsers = string
-      console.log('state.searchUsers', state.searchUsers)
-      return state.users.filter(item => {
-        return state.searchUsers.toLowerCase().split(' ').every(v => {
-          item.name.toLowerCase().includes(v)
-        })
-        // console.log(item.name.toLowerCase().includes(string))
-        // if (item.name.toLowerCase().includes(string)) {
-        //   console.log('success', item)
-        // } else {
-        //   // console.log('error')
-        // }
-      })
+    searcheredUsers (state) {
+      return state.searchUsers
     }
+    // filteredUsers: state => string => {
+    //   // console.log('string', string)
+    //   state.searchUsers = string
+    //   return state.users.filter(item => {
+    //     return state.searchUsers.toLowerCase().split(' ').every(v => {
+    //       item.name.toLowerCase().includes(v)
+    //     })
+    //     // console.log(item.name.toLowerCase().includes(string))
+    //     // if (item.name.toLowerCase().includes(string)) {
+    //     //   console.log('success', item)
+    //     // } else {
+    //     //   // console.log('error')
+    //     // }
+    //   })
+    // }
     // sorteredByAge (state) {
     //   return state.users
 

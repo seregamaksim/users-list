@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="user-list" :class="currentPreview ? 'user-list--preview' : ''">
-      <CardUser class="user-list__item" v-for="obj in allUsers" :key="obj.id" :user="obj"></CardUser>
+      <CardUser class="user-list__item" v-for="obj in searcheredUsers" :key="obj.id" :user="obj"></CardUser>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
     ...mapActions(['getUsers'])
   },
   computed: {
-    ...mapGetters(['allUsers', 'currentPreview', 'filteredUsers'])
+    ...mapGetters(['allUsers', 'searcheredUsers', 'currentPreview'])
   },
   components: {
     CardUser

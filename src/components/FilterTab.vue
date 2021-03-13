@@ -20,6 +20,12 @@
           <FilterBtn btnText="Превью" @click="getChangeView('preview')"></FilterBtn>
         </div>
       </li>
+      <li class="filter-list__item filter-list__item--full">
+        <p class="filter-list__item-title">Поиск</p>
+        <!-- <Input placeholder="Поиск" :value="test" v-model="test" /> -->
+        <input class="input" type="text" name="search" @input="getFilteredUsers($event.target.value)" placeholder="Поиск">
+        <!-- <input class="input" type="text" name="search" v-model="test" placeholder="Поиск"> -->
+      </li>
     </ul>
   </div>
 </template>
