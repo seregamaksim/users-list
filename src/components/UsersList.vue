@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="user-list" :class="currentPreview ? 'user-list--preview' : ''">
-      <CardUser class="user-list__item" v-for="obj in allUsers" :key="obj.id" :user="obj"></CardUser>
+      <CardUser class="user-list__item" v-for="obj in searcheredUsers" :key="obj.id" :user="obj"></CardUser>
     </div>
   </div>
 </template>
@@ -13,17 +13,18 @@ import CardUser from './CardUser'
 export default {
   data () {
     return {
-      // users: ''
+      users: this.getUsers()
     }
   },
   mounted () {
     this.getUsers()
+    // this.users = dataUsers
   },
   methods: {
     ...mapActions(['getUsers'])
   },
   computed: {
-    ...mapGetters(['allUsers', 'currentPreview'])
+    ...mapGetters(['allUsers', 'searcheredUsers', 'currentPreview'])
   },
   components: {
     CardUser

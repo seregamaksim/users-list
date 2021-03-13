@@ -8,14 +8,21 @@
 <script>
 import UsersList from './components/UsersList'
 import FilterTab from './components/FilterTab'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
-      // myJson: json
+      // testText: this.filteredUsers(this.test)
     }
   },
   name: 'App',
+  methods: {
+    ...mapActions(['getFilteredUsers'])
+  },
+  computed: {
+    ...mapGetters(['allUsers', 'filteredUsers'])
+  },
   components: {
     UsersList, FilterTab
   }
